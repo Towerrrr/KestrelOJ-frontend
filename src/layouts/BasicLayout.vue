@@ -8,8 +8,8 @@
         <router-view />
       </a-layout-content>
       <a-layout-footer class="footer">
-        <a href="http://yupi.icu.com" target="_blank"
-          >编程导航知识星球</a
+        <a href="https://github.com/Towerrrr" target="_blank"
+          >GitHub 个人主页</a
         ></a-layout-footer
       >
     </a-layout>
