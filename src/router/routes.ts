@@ -6,7 +6,19 @@ export const routes: Array<RouteRecordRaw> = [
     path: "/",
     name: "home",
     component: HomeView,
-    meta: { title: "Kestrel OJ" },
+  },
+  {
+    path: "/noAuth",
+    name: "无权限",
+    component: () => import("../views/NoAuthView.vue"),
+  },
+  {
+    path: "/admin",
+    name: "admin",
+    component: () => import("../views/AdminView.vue"),
+    meta: {
+      access: "canAdmin",
+    },
   },
   {
     path: "/about",

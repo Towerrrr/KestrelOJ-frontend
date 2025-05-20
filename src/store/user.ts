@@ -3,12 +3,12 @@ import { StoreOptions } from "vuex";
 export default {
   namespaced: true,
   state: {
-    loginUser: { userName: "未登录" },
+    loginUser: { userName: "未登录", role: "notLogin" },
   },
   getters: {},
   actions: {
     getLoginUser({ commit, state }, payload) {
-      commit("updateUser", { userName: "Towerrrr" });
+      commit("updateUser", payload);
     },
   },
   mutations: {
