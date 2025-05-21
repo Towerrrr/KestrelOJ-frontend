@@ -6,6 +6,17 @@ export const routes: Array<RouteRecordRaw> = [
     path: "/",
     name: "home",
     component: HomeView,
+    meta: {
+      title: "Kestrel OJ",
+    },
+  },
+  {
+    path: "/hide",
+    name: "隐藏页面",
+    component: HomeView,
+    meta: {
+      hideInMenu: true,
+    },
   },
   {
     path: "/noAuth",

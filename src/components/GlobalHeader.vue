@@ -1,5 +1,5 @@
 <template>
-  <a-row align="center" style="margin-bottom: 16px" id="globalHeader">
+  <a-row align="center" id="globalHeader" :wrap="false">
     <a-col flex="auto">
       <a-menu
         mode="horizontal"
@@ -16,7 +16,7 @@
             <div class="title">Kestrel OJ</div>
           </div>
         </a-menu-item>
-        <a-menu-item v-for="item in routes" :key="item.path">
+        <a-menu-item v-for="item in visibleRoutes" :key="item.path">
           {{ item.name }}
         </a-menu-item>
       </a-menu>
@@ -32,7 +32,13 @@ import { routes } from "../router/routes";
 import { useRouter } from "vue-router";
 import { ref } from "vue";
 import { useStore } from "vuex";
-
+//展示在菜单的路由数组
+const visibleRoutes = routes.filter((item, index) => {
+  if (item.meta?.hideInMenu) {
+    return false;
+  }
+  return true;
+});
 const router = useRouter();
 //默认主页
 const selectedKeys = ref(["/"]);
@@ -47,9 +53,9 @@ const doMenuClick = (key: string) => {
 };
 const store = useStore();
 // console.log(store.state.user);
-setTimeout(() => {
-  store.dispatch("user/getLoginUser", { userName: "Towerrrr" });
-}, 3000);
+// setTimeout(() => {
+//   store.dispatch("user/getLoginUser", { userName: "Towerrrr", role: "admin" });
+// }, 3000);
 </script>
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
