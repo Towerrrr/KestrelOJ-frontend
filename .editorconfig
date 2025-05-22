@@ -1,3 +1,5 @@
 [*.vue]
 end_of_line = lf
 
+[*.ts]
+end_of_line = lf
