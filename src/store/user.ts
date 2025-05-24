@@ -5,7 +5,7 @@ import { UserControllerService } from "../../generated";
 export default {
   namespaced: true,
   state: {
-    loginUser: { userName: "未登录", userRole: AccessEnum.NOT_LOGIN },
+    loginUser: { userName: "未登录" },
   },
   getters: {},
   actions: {
