@@ -1,5 +1,5 @@
 import { RouteRecordRaw } from "vue-router";
-import HomeView from "@/views/HomeView.vue";
+import ExampleView from "@/views/ExampleView.vue";
 import AccessEnum from "@/access/accessEnum";
 import UserLoginView from "@/views/user/UserLoginView.vue";
 import UserLayout from "@/layouts/UserLayout.vue";
@@ -26,7 +26,7 @@ export const routes: Array<RouteRecordRaw> = [
   {
     path: "/",
     name: "home",
-    component: HomeView,
+    component: ExampleView,
     meta: {
       title: "Kestrel OJ",
     },
@@ -34,7 +34,7 @@ export const routes: Array<RouteRecordRaw> = [
   {
     path: "/hide",
     name: "隐藏页面",
-    component: HomeView,
+    component: ExampleView,
     meta: {
       hideInMenu: true,
     },
