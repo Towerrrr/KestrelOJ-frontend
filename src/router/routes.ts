@@ -1,5 +1,5 @@
 import { RouteRecordRaw } from "vue-router";
-import ExampleView from "@/views/ExampleView.vue";
+import HomeView from "@/views/ExampleView.vue";
 import AccessEnum from "@/access/accessEnum";
 import UserLoginView from "@/views/user/UserLoginView.vue";
 import UserLayout from "@/layouts/UserLayout.vue";
@@ -22,11 +22,22 @@ export const routes: Array<RouteRecordRaw> = [
         component: UserRegisterView,
       },
     ],
+    meta: {
+      hideInMenu: true,
+    },
+  },
+  {
+    path: "/add/question",
+    name: "创建题目",
+    component: () => import("../views/question/AddQuestionView.vue"),
+    // meta: {
+    //   access: AccessEnum.ADMIN,
+    // },
   },
   {
     path: "/",
     name: "home",
-    component: ExampleView,
+    component: HomeView,
     meta: {
       title: "Kestrel OJ",
     },
@@ -34,8 +45,9 @@ export const routes: Array<RouteRecordRaw> = [
   {
     path: "/hide",
     name: "隐藏页面",
-    component: ExampleView,
+    component: HomeView,
     meta: {
+      title: "Kestrel OJ",
       hideInMenu: true,
     },
   },
