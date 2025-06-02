@@ -8,6 +8,7 @@
         pageSize: searchParams.pageSize,
         current: searchParams.pageNum,
         showTotal: true,
+        total,
       }"
     >
       <template #optional="{ record }">
@@ -26,7 +27,9 @@ import {
   QuestionControllerService,
 } from "../../../generated/question";
 import { Message } from "@arco-design/web-vue";
+import { useRouter } from "vue-router";
 
+const router = useRouter();
 const dataList = ref([]);
 const total = ref(0);
 const searchParams = ref({
@@ -39,6 +42,7 @@ const loadData = async () => {
   );
   if (res.code === 0) {
     dataList.value = res.data.records;
+    total.value = res.data.total;
   } else {
     Message.error("加载失败" + res.message);
   }
@@ -104,12 +108,18 @@ const doDelete = async (question: Question) => {
   });
   if (res.code === 0) {
     Message.success("删除成功");
+    loadData();
   } else {
-    Message.error("操作失败" + res.message);
+    Message.error("删除失败" + res.message);
   }
 };
 const doUpdate = (question: Question) => {
-  console.log(question);
+  router.push({
+    path: "/update/question",
+    query: {
+      id: question.id,
+    },
+  });
 };
 </script>
 <style scoped>
