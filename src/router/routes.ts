@@ -30,9 +30,9 @@ export const routes: Array<RouteRecordRaw> = [
     path: "/add/question",
     name: "创建题目",
     component: () => import("../views/question/AddQuestionView.vue"),
-    // meta: {
-    //   access: AccessEnum.ADMIN,
-    // },
+    meta: {
+      access: AccessEnum.USER,
+    },
   },
   {
     path: "/manage/question",
@@ -46,47 +46,48 @@ export const routes: Array<RouteRecordRaw> = [
     path: "/update/question",
     name: "更新题目",
     component: () => import("../views/question/AddQuestionView.vue"),
-    // meta: {
-    //   access: AccessEnum.ADMIN,
-    // },
-  },
-  {
-    path: "/",
-    name: "home",
-    component: HomeView,
     meta: {
       title: "Kestrel OJ",
-    },
-  },
-  {
-    path: "/hide",
-    name: "隐藏页面",
-    component: HomeView,
-    meta: {
-      title: "Kestrel OJ",
+      access: AccessEnum.USER,
       hideInMenu: true,
     },
   },
   {
+    path: "/",
+    name: "浏览题目",
+    component: HomeView,
+  },
+  // {
+  //   path: "/hide",
+  //   name: "隐藏页面",
+  //   component: HomeView,
+  //   meta: {
+  //     hideInMenu: true,
+  //   },
+  // },
+  {
     path: "/noAuth",
     name: "无权限",
     component: () => import("../views/NoAuthView.vue"),
-  },
-  {
-    path: "/admin",
-    name: "admin",
-    component: () => import("../views/AdminView.vue"),
     meta: {
-      access: AccessEnum.ADMIN,
+      hideInMenu: true,
     },
   },
-  {
-    path: "/about",
-    name: "about",
-    // route level code-splitting
-    // this generates a separate chunk (about.[hash].js) for this route
-    // which is lazy-loaded when the route is visited.
-    component: () =>
-      import(/* webpackChunkName: "about" */ "../views/AboutView.vue"),
-  },
+  // {
+  //   path: "/admin",
+  //   name: "admin",
+  //   component: () => import("../views/AdminView.vue"),
+  //   meta: {
+  //     access: AccessEnum.ADMIN,
+  //   },
+  // },
+  // {
+  //   path: "/about",
+  //   name: "about",
+  //   // route level code-splitting
+  //   // this generates a separate chunk (about.[hash].js) for this route
+  //   // which is lazy-loaded when the route is visited.
+  //   component: () =>
+  //     import(/* webpackChunkName: "about" */ "../views/AboutView.vue"),
+  // },
 ];
