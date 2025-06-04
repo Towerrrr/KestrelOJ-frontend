@@ -27,6 +27,11 @@ export const routes: Array<RouteRecordRaw> = [
     },
   },
   {
+    path: "/question",
+    name: "浏览题目",
+    component: () => import("../views/question/QuestionsView.vue"),
+  },
+  {
     path: "/add/question",
     name: "创建题目",
     component: () => import("../views/question/AddQuestionView.vue"),
@@ -54,9 +59,10 @@ export const routes: Array<RouteRecordRaw> = [
   },
   {
     path: "/",
-    name: "浏览题目",
-    component: HomeView,
+    name: "主页",
+    component: () => import("../views/question/QuestionsView.vue"),
   },
+
   // {
   //   path: "/hide",
   //   name: "隐藏页面",
