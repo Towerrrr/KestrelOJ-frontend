@@ -38,9 +38,27 @@
         </a-tabs>
       </a-col>
       <a-col :md="12" :xs="24">
+        <a-form :model="form" layout="inline">
+          <a-form-item
+            field="language"
+            label="编程语言"
+            style="min-width: 240px"
+          >
+            <a-select
+              :style="{ width: '320px' }"
+              placeholder="请选择编程语言"
+              v-model="form.language"
+            >
+              <a-option>java</a-option>
+              <a-option>cpp</a-option>
+              <a-option>go</a-option>
+            </a-select>
+          </a-form-item>
+        </a-form>
         <CodeEditor
-          :value="form.code ?? ''"
-          :handleChange="handleCodeChange"
+          :value="form.code as string"
+          :language="form.language ?? 'java'"
+          :handle-change="changeCode"
         ></CodeEditor>
         <a-divider size="0"></a-divider>
         <a-button type="primary" style="min-width: 200px" @click="doSubmit"
@@ -70,18 +88,16 @@ const form = ref<QuestionSubmitAddRequest>({
   code: "",
 });
 
-const handleCodeChange = (v: string) => {
-  form.value.code = v;
-};
-
 interface Props {
   id: string;
 }
 
 const doSubmit = async () => {
-  const res = await QuestionSubmitControllerService.doQuestionSubmitUsingPost(
-    form.value
-  );
+  if (!question.value?.id) return;
+  const res = await QuestionSubmitControllerService.doQuestionSubmitUsingPost({
+    ...form.value,
+    questionId: question.value.id,
+  });
   if (res.code === 0) {
     Message.success("提交成功");
   } else {
@@ -104,6 +120,9 @@ const loadData = async () => {
 onMounted(() => {
   loadData();
 });
+const changeCode = (value: string) => {
+  form.value.code = value;
+};
 </script>
 <style>
 #viewQuestionView {
