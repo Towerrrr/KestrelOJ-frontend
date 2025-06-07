@@ -32,6 +32,11 @@ export const routes: Array<RouteRecordRaw> = [
     component: () => import("../views/question/QuestionsView.vue"),
   },
   {
+    path: "/question_submit",
+    name: "浏览题目并提交",
+    component: () => import("../views/question/QuestionsSubmitView.vue"),
+  },
+  {
     path: "/view/question/:id",
     name: "在线做题",
     props: true,
