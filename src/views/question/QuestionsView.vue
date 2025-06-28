@@ -11,7 +11,7 @@
         <a-button @click="doSubmit()" type="primary">提交</a-button>
       </a-form-item>
     </a-form>
-    <a-divider size="0"></a-divider>
+    <a-divider :size="0"></a-divider>
     <a-table
       :columns="columns"
       :data="dataList"

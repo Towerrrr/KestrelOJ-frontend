@@ -22,8 +22,7 @@
       </a-menu>
     </a-col>
     <a-col flex="100px">
-      <!-- todo 登录用户未保存 -->
-      <div>{{ store.state.user?.loginUser?.userName ?? "未登录" }}</div>
+      <div>{{ store.state.user?.loginUser?.userName }}</div>
     </a-col>
   </a-row>
 </template>
