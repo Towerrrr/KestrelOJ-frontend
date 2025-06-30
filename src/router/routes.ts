@@ -15,11 +15,17 @@ export const routes: Array<RouteRecordRaw> = [
         path: "/user/login",
         name: "用户登录",
         component: UserLoginView,
+        meta: {
+          title: "登录 - Kestrel OJ",
+        },
       },
       {
         path: "/user/register",
         name: "用户注册",
         component: UserRegisterView,
+        meta: {
+          title: "注册 - Kestrel OJ",
+        },
       },
     ],
     meta: {
@@ -30,6 +36,9 @@ export const routes: Array<RouteRecordRaw> = [
     path: "/question",
     name: "浏览题目",
     component: () => import("../views/question/QuestionsView.vue"),
+    meta: {
+      title: "Kestrel OJ",
+    },
   },
   {
     path: "/question_submit",
@@ -76,6 +85,9 @@ export const routes: Array<RouteRecordRaw> = [
     path: "/",
     name: "主页",
     component: () => import("../views/question/QuestionsView.vue"),
+    meta: {
+      title: "Kestrel OJ",
+    },
   },
 
   // {

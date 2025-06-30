@@ -29,7 +29,7 @@
             v-for="(tag, index) of record.tags"
             :key="index"
             color="green"
-            closable
+            :closable="false"
             >{{ tag }}
           </a-tag>
         </a-space>
@@ -79,8 +79,12 @@ const loadData = async () => {
     searchParams.value
   );
   if (res.code === 0) {
-    dataList.value = res.data.records;
-    total.value = res.data.total;
+    // todo 目前先让题目显示 id 与题目不绑定
+    dataList.value = res.data.records.map((record: Question, index: number) => {
+      record.id = index + 1;
+      return record;
+    });
+    total.value = Number(res.data.total);
   } else {
     Message.error("加载失败" + res.message);
   }
