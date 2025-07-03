@@ -1,5 +1,4 @@
 <template>
-  <div id="addQuestionView"><h2>创建题目</h2></div>
   <a-form :model="form" :style="{ width: '600px' }" @submit="handleSubmit">
     <a-form-item field="title">
       <a-input v-model="form.title" placeholder="请输入标题"></a-input>

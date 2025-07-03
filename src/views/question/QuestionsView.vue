@@ -79,11 +79,12 @@ const loadData = async () => {
     searchParams.value
   );
   if (res.code === 0) {
-    // todo 目前先让题目显示 id 与题目不绑定
-    dataList.value = res.data.records.map((record: Question, index: number) => {
-      record.id = index + 1;
-      return record;
-    });
+    dataList.value = res.data.records;
+    // todo 题目 id 的处理后面再改
+    // dataList.value = res.data.records.map((record: Question, index: number) => {
+    //   record.id = index + 1;
+    //   return record;
+    // });
     total.value = Number(res.data.total);
   } else {
     Message.error("加载失败" + res.message);
@@ -129,6 +130,7 @@ const onPageChange = (page: number) => {
 };
 //跳转到做题页面
 const toQuestionPage = (question: Question) => {
+  // todo 转到题目页面直接用的题目 id，后续修改成题目名称？
   router.push({
     path: `/view/question/${question.id}`,
   });

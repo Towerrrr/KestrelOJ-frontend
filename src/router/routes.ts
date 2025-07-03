@@ -33,8 +33,8 @@ export const routes: Array<RouteRecordRaw> = [
     },
   },
   {
-    path: "/question",
-    name: "浏览题目",
+    path: "/",
+    name: "主页",
     component: () => import("../views/question/QuestionsView.vue"),
     meta: {
       title: "Kestrel OJ",
@@ -79,14 +79,6 @@ export const routes: Array<RouteRecordRaw> = [
       title: "Kestrel OJ",
       access: AccessEnum.USER,
       hideInMenu: true,
-    },
-  },
-  {
-    path: "/",
-    name: "主页",
-    component: () => import("../views/question/QuestionsView.vue"),
-    meta: {
-      title: "Kestrel OJ",
     },
   },
 

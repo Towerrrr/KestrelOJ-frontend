@@ -62,9 +62,9 @@ const store = useStore();
 
 const dropdownVisible = ref(false);
 
-//展示在菜单的路由数组
+// 展示在菜单的路由数组，通过计算属性缓存结果
 const visibleRoutes = computed(() => {
-  return routes.filter((item, index) => {
+  return routes.filter((item) => {
     if (item.meta?.hideInMenu) {
       return false;
     }
@@ -75,16 +75,6 @@ const visibleRoutes = computed(() => {
     return true;
   });
 });
-// const visibleRoutes = routes.filter((item, index) => {
-//   if (item.meta?.hideInMenu) {
-//     return false;
-//   }
-//   //根据权限过滤菜单
-//   if (!checkAccess(store.state.user.loginUser, item.meta?.access as string)) {
-//     return false;
-//   }
-//   return true;
-// });
 
 //默认主页
 const selectedKeys = ref(["/"]);
