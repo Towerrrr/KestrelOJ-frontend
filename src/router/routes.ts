@@ -42,7 +42,7 @@ export const routes: Array<RouteRecordRaw> = [
   },
   {
     path: "/question_submit",
-    name: "浏览题目并提交",
+    name: "题目提交记录",
     component: () => import("../views/question/QuestionsSubmitView.vue"),
   },
   {

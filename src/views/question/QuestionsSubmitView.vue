@@ -20,7 +20,7 @@
         <a-button @click="doSubmit()" type="primary">搜索</a-button>
       </a-form-item>
     </a-form>
-    <a-divider size="0"></a-divider>
+    <a-divider :size="0"></a-divider>
     <a-table
       :columns="columns"
       :data="dataList"
@@ -69,7 +69,7 @@ const loadData = async () => {
   });
   if (res.code === 0) {
     dataList.value = res.data.records;
-    total.value = res.data.total;
+    total.value = Number(res.data.total);
   } else {
     Message.error("加载失败" + res.message);
   }

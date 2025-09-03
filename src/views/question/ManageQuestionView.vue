@@ -1,6 +1,9 @@
 <template>
   <div id="manageQuestionView">
-    <h2>题目管理</h2>
+    <div style="text-align: right; margin-bottom: 16px">
+      <a-button type="primary" @click="goToAddQuestion">添加题目</a-button>
+    </div>
+
     <a-table
       :columns="columns"
       :data="dataList"
@@ -21,6 +24,7 @@
     </a-table>
   </div>
 </template>
+
 <script setup lang="ts">
 import { onMounted, ref, watchEffect } from "vue";
 import {
@@ -37,6 +41,11 @@ const searchParams = ref({
   pageSize: 2,
   current: 1,
 });
+
+const goToAddQuestion = () => {
+  router.push("/add/question");
+};
+
 const loadData = async () => {
   const res = await QuestionControllerService.listQuestionByPageUsingPost(
     searchParams.value
@@ -48,10 +57,13 @@ const loadData = async () => {
     Message.error("加载失败" + res.message);
   }
 };
+
 const show = ref(true);
+
 onMounted(() => {
   loadData();
 });
+
 const columns = [
   {
     title: "id",
@@ -103,15 +115,18 @@ const columns = [
     slotName: "optional",
   },
 ];
+
 watchEffect(() => {
   loadData();
 });
+
 const onPageChange = (page: number) => {
   searchParams.value = {
     ...searchParams.value,
     current: page,
   };
 };
+
 const doDelete = async (question: Question) => {
   const res = await QuestionControllerService.deleteQuestionUsingPost({
     id: question.id,
@@ -123,6 +138,7 @@ const doDelete = async (question: Question) => {
     Message.error("删除失败" + res.message);
   }
 };
+
 const doUpdate = (question: Question) => {
   router.push({
     path: "/update/question",
@@ -132,7 +148,5 @@ const doUpdate = (question: Question) => {
   });
 };
 </script>
-<style scoped>
-#manageQuestionView {
-}
-</style>
+
+<style scoped></style>
