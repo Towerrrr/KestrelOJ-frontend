@@ -32,8 +32,17 @@
       }"
       @page-change="onPageChange"
     >
-      <template #judgeInfo="{ record }">
-        {{ JSON.stringify(record.judgeInfo) }}
+      <template #judgeMessage="{ record }">
+        {{ record.judgeInfo?.message || "-" }}
+      </template>
+      <template #memory="{ record }">
+        {{ record.judgeInfo?.memory || "-" }}
+      </template>
+      <template #time="{ record }">
+        {{ record.judgeInfo?.time || "-" }}
+      </template>
+      <template #status="{ record }">
+        {{ statusMap[record.status] }}
       </template>
       <template #createTime="{ record }">
         {{ moment(record.createTime).format("YYYY-MM-DD") }}
@@ -45,7 +54,7 @@
 import { onMounted, ref, watchEffect } from "vue";
 import {
   Question,
-  QuestionControllerService,
+  QuestionSubmitControllerService,
   QuestionSubmitQueryRequest,
 } from "../../../generated/question";
 import { Message } from "@arco-design/web-vue";
@@ -62,11 +71,13 @@ const searchParams = ref<QuestionSubmitQueryRequest>({
   current: 1,
 });
 const loadData = async () => {
-  const res = await QuestionControllerService.listQuestionByPageUsingPost({
-    ...searchParams.value,
-    sortField: "createTime",
-    sortOrder: "descend",
-  });
+  const res =
+    await QuestionSubmitControllerService.listQuestionSubmitByPageUsingPost({
+      ...searchParams.value,
+      sortField: "createTime",
+      sortOrder: "descend",
+    });
+  console.log(res);
   if (res.code === 0) {
     dataList.value = res.data.records;
     total.value = Number(res.data.total);
@@ -74,7 +85,7 @@ const loadData = async () => {
     Message.error("加载失败" + res.message);
   }
 };
-const show = ref(true);
+
 onMounted(() => {
   loadData();
 });
@@ -88,8 +99,19 @@ const columns = [
     dataIndex: "language",
   },
   {
-    title: "判题信息",
-    slotName: "judgeInfo",
+    title: "判题消息",
+    dataIndex: "judgeInfo",
+    slotName: "judgeMessage",
+  },
+  {
+    title: "内存(kb)",
+    dataIndex: "judgeInfo",
+    slotName: "memory",
+  },
+  {
+    title: "时间(ms)",
+    dataIndex: "judgeInfo",
+    slotName: "time",
   },
   {
     title: "判题状态",
@@ -111,6 +133,14 @@ const columns = [
     slotName: "createTime",
   },
 ];
+
+const statusMap: Record<number, string> = {
+  0: "等待中",
+  1: "判题中",
+  2: "成功",
+  3: "失败",
+};
+
 watchEffect(() => {
   loadData();
 });
