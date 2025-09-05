@@ -55,7 +55,15 @@ const goToAddQuestion = () => {
   router.push("/add/question");
 };
 
-const parseJudgeConfig = (judgeConfig: any) => {
+interface JudgeConfigItem {
+  timeLimit?: number;
+  memoryLimit?: number;
+  stackLimit?: number;
+}
+
+const parseJudgeConfig = (
+  judgeConfig: string | JudgeConfigItem[] | null
+): JudgeConfigItem[] | null => {
   if (!judgeConfig) return null;
 
   if (typeof judgeConfig === "string") {
@@ -70,7 +78,10 @@ const parseJudgeConfig = (judgeConfig: any) => {
   return judgeConfig;
 };
 
-const getJudgeConfigValue = (judgeConfig: any, field: string) => {
+const getJudgeConfigValue = (
+  judgeConfig: string | JudgeConfigItem[] | null,
+  field: string
+) => {
   const parsedConfig = parseJudgeConfig(judgeConfig);
 
   if (
@@ -82,7 +93,9 @@ const getJudgeConfigValue = (judgeConfig: any, field: string) => {
   }
 
   const configItem = parsedConfig[0];
-  return configItem[field] !== undefined ? configItem[field] : "-";
+  return configItem[field as keyof JudgeConfigItem] !== undefined
+    ? configItem[field as keyof JudgeConfigItem]
+    : "-";
 };
 
 const loadData = async () => {
