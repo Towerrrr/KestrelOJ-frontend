@@ -15,6 +15,15 @@
       }"
       @page-change="onPageChange"
     >
+      <template #timeLimit="{ record }">
+        {{ record.judgeConfig?.timeLimit || "-" }}
+      </template>
+      <template #memoryLimit="{ record }">
+        {{ record.judgeConfig?.memoryLimit || "-" }}
+      </template>
+      <template #stackLimit="{ record }">
+        {{ record.judgeConfig?.stackLimit || "-" }}
+      </template>
       <template #optional="{ record }">
         <a-space>
           <a-button type="primary" @click="doUpdate(record)">修改</a-button>
@@ -38,7 +47,7 @@ const router = useRouter();
 const dataList = ref([]);
 const total = ref(0);
 const searchParams = ref({
-  pageSize: 2,
+  pageSize: 10,
   current: 1,
 });
 
@@ -74,16 +83,8 @@ const columns = [
     dataIndex: "title",
   },
   {
-    title: "内容",
-    dataIndex: "content",
-  },
-  {
     title: "标签",
     dataIndex: "tags",
-  },
-  {
-    title: "答案",
-    dataIndex: "answer",
   },
   {
     title: "提交数",
@@ -94,14 +95,20 @@ const columns = [
     dataIndex: "acceptedNum",
   },
   {
-    title: "判题配置",
-    dataIndex: "judgeConfig",
+    title: "时间限制(ms)",
+    dataIndex: "judgeConfig.timeLimit",
+    slotName: "timeLimit",
   },
   {
-    title: "判题用例",
-    dataIndex: "judgeCase",
+    title: "内存限制(kb)",
+    dataIndex: "judgeConfig.memoryLimit",
+    slotName: "memoryLimit",
   },
-
+  {
+    title: "堆栈限制(kb)",
+    dataIndex: "judgeConfig.stackLimit",
+    slotName: "stackLimit",
+  },
   {
     title: "用户ID",
     dataIndex: "userId",
