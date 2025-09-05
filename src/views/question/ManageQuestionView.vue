@@ -16,13 +16,13 @@
       @page-change="onPageChange"
     >
       <template #timeLimit="{ record }">
-        {{ record.judgeConfig?.timeLimit || "-" }}
+        {{ getJudgeConfigValue(record.judgeConfig, "timeLimit") }}
       </template>
       <template #memoryLimit="{ record }">
-        {{ record.judgeConfig?.memoryLimit || "-" }}
+        {{ getJudgeConfigValue(record.judgeConfig, "memoryLimit") }}
       </template>
       <template #stackLimit="{ record }">
-        {{ record.judgeConfig?.stackLimit || "-" }}
+        {{ getJudgeConfigValue(record.judgeConfig, "stackLimit") }}
       </template>
       <template #optional="{ record }">
         <a-space>
@@ -55,6 +55,36 @@ const goToAddQuestion = () => {
   router.push("/add/question");
 };
 
+const parseJudgeConfig = (judgeConfig: any) => {
+  if (!judgeConfig) return null;
+
+  if (typeof judgeConfig === "string") {
+    try {
+      return JSON.parse(judgeConfig);
+    } catch (e) {
+      console.error("Failed to parse judgeConfig:", e);
+      return null;
+    }
+  }
+
+  return judgeConfig;
+};
+
+const getJudgeConfigValue = (judgeConfig: any, field: string) => {
+  const parsedConfig = parseJudgeConfig(judgeConfig);
+
+  if (
+    !parsedConfig ||
+    !Array.isArray(parsedConfig) ||
+    parsedConfig.length === 0
+  ) {
+    return "-";
+  }
+
+  const configItem = parsedConfig[0];
+  return configItem[field] !== undefined ? configItem[field] : "-";
+};
+
 const loadData = async () => {
   const res = await QuestionControllerService.listQuestionByPageUsingPost(
     searchParams.value
@@ -66,8 +96,6 @@ const loadData = async () => {
     Message.error("加载失败" + res.message);
   }
 };
-
-const show = ref(true);
 
 onMounted(() => {
   loadData();
@@ -96,17 +124,14 @@ const columns = [
   },
   {
     title: "时间限制(ms)",
-    dataIndex: "judgeConfig.timeLimit",
     slotName: "timeLimit",
   },
   {
     title: "内存限制(kb)",
-    dataIndex: "judgeConfig.memoryLimit",
     slotName: "memoryLimit",
   },
   {
     title: "堆栈限制(kb)",
-    dataIndex: "judgeConfig.stackLimit",
     slotName: "stackLimit",
   },
   {
