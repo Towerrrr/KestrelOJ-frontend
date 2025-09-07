@@ -30,6 +30,9 @@
           <a-button status="danger" @click="doDelete(record)">删除</a-button>
         </a-space>
       </template>
+      <template #createTime="{ record }">
+        {{ formatDateTime(record.createTime) }}
+      </template>
     </a-table>
   </div>
 </template>
@@ -103,6 +106,7 @@ const loadData = async () => {
     searchParams.value
   );
   if (res.code === 0) {
+    // console.log(res);
     dataList.value = res.data.records;
     total.value = Number(res.data.total);
   } else {
@@ -154,6 +158,7 @@ const columns = [
   {
     title: "创建时间",
     dataIndex: "createTime",
+    slotName: "createTime",
   },
   {
     title: "操作",
@@ -191,6 +196,17 @@ const doUpdate = (question: Question) => {
       id: question.id,
     },
   });
+};
+
+const formatDateTime = (dateString: string) => {
+  if (!dateString) return "-";
+  const date = new Date(dateString);
+  const year = date.getFullYear();
+  const month = String(date.getMonth() + 1).padStart(2, "0");
+  const day = String(date.getDate()).padStart(2, "0");
+  const hours = String(date.getHours()).padStart(2, "0");
+  const minutes = String(date.getMinutes()).padStart(2, "0");
+  return `${year}-${month}-${day} ${hours}:${minutes}`;
 };
 </script>
 
