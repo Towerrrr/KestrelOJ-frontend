@@ -24,7 +24,7 @@
             placeholder="请输入时间消耗"
             mode="button"
             size="large"
-            min="0"
+            :min="0"
           />
         </a-form-item>
         <a-form-item field="judgeConfig.memoryLimit" label="内存限制">
@@ -33,7 +33,7 @@
             placeholder="请输入内存限制"
             mode="button"
             size="large"
-            min="0"
+            :min="0"
           />
         </a-form-item>
         <a-form-item field="judgeConfig.stackLimit" label="堆栈限制">
@@ -42,7 +42,7 @@
             placeholder="请输入堆栈限制"
             mode="button"
             size="large"
-            min="0"
+            :min="0"
           />
         </a-form-item>
       </a-space>
@@ -96,7 +96,7 @@
   </a-form>
 </template>
 <script setup lang="ts">
-import { onMounted, reactive, ref } from "vue";
+import { onMounted, ref } from "vue";
 import MdEditor from "@/components/MdEditor.vue";
 import { QuestionControllerService } from "../../../generated/question";
 import { Message } from "@arco-design/web-vue";
