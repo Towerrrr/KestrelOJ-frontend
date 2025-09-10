@@ -90,7 +90,6 @@ const loadData = async () => {
     Message.error("加载失败" + res.message);
   }
 };
-const show = ref(true);
 onMounted(() => {
   loadData();
 });

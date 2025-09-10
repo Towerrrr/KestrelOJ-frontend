@@ -77,11 +77,9 @@ import {
   QuestionVO,
 } from "../../../generated/question";
 import { Message } from "@arco-design/web-vue";
-import { useRouter } from "vue-router";
 import CodeEditor from "@/components/CodeEditor.vue";
 import MdViewer from "@/components/MdViewer.vue";
 
-const router = useRouter();
 const question = ref<QuestionVO>();
 const form = ref<QuestionSubmitAddRequest>({
   language: "java",
