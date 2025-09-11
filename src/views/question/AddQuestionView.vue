@@ -142,7 +142,9 @@ const loadData = async () => {
         },
       ];
     } else {
-      form.value.judgeCase = JSON.parse(form.value.judgeCase as any);
+      if (typeof form.value.judgeCase === "string") {
+        form.value.judgeCase = JSON.parse(form.value.judgeCase as any);
+      }
     }
     if (!form.value.judgeConfig) {
       form.value.judgeConfig = [
@@ -153,12 +155,16 @@ const loadData = async () => {
         },
       ];
     } else {
-      form.value.judgeConfig = JSON.parse(form.value.judgeConfig as any);
+      if (typeof form.value.judgeConfig === "string") {
+        form.value.judgeConfig = JSON.parse(form.value.judgeConfig as any);
+      }
     }
     if (!form.value.tags) {
       form.value.tags = [];
     } else {
-      form.value.tags = JSON.parse(form.value.tags as any);
+      if (typeof form.value.tags === "string") {
+        form.value.tags = JSON.parse(form.value.tags as any);
+      }
     }
   } else {
     Message.error("加载失败" + res.message);
