@@ -15,15 +15,6 @@
       }"
       @page-change="onPageChange"
     >
-      <template #timeLimit="{ record }">
-        {{ getJudgeConfigValue(record.judgeConfig, "timeLimit") }}
-      </template>
-      <template #memoryLimit="{ record }">
-        {{ getJudgeConfigValue(record.judgeConfig, "memoryLimit") }}
-      </template>
-      <template #stackLimit="{ record }">
-        {{ getJudgeConfigValue(record.judgeConfig, "stackLimit") }}
-      </template>
       <template #optional="{ record }">
         <a-space>
           <a-button type="primary" @click="doUpdate(record)">修改</a-button>
@@ -138,18 +129,6 @@ const columns = [
   {
     title: "通过数",
     dataIndex: "acceptedNum",
-  },
-  {
-    title: "时间限制(ms)",
-    slotName: "timeLimit",
-  },
-  {
-    title: "内存限制(kb)",
-    slotName: "memoryLimit",
-  },
-  {
-    title: "堆栈限制(kb)",
-    slotName: "stackLimit",
   },
   {
     title: "用户ID",
